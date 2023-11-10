@@ -5,9 +5,15 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@auth/prisma-adapter':
+    specifier: ^1.0.5
+    version: 1.0.5(@prisma/client@5.4.2)
   '@hookform/resolvers':
     specifier: ^3.3.2
     version: 3.3.2(react-hook-form@7.47.0)
+  '@next-auth/prisma-adapter':
+    specifier: ^1.0.7
+    version: 1.0.7(@prisma/client@5.4.2)(next-auth@4.24.4)
   '@prisma/client':
     specifier: 5.4.2
     version: 5.4.2(prisma@5.4.2)
@@ -105,6 +111,33 @@ packages:
   /@alloc/quick-lru@5.2.0:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
+
+  /@auth/core@0.18.0:
+    resolution: {integrity: sha512-Xb41H3FIv4PlTZmwoFvntaNlVTwIqFxIg7i0/ieHOOxf/7H8EJpGTWoNrqKhwMyZEPU6fHp+VcUiqdX3vFrWSg==}
+    peerDependencies:
+      nodemailer: ^6.8.0
+    peerDependenciesMeta:
+      nodemailer:
+        optional: true
+    dependencies:
+      '@panva/hkdf': 1.1.1
+      cookie: 0.5.0
+      jose: 4.15.4
+      oauth4webapi: 2.3.0
+      preact: 10.11.3
+      preact-render-to-string: 5.2.3(preact@10.11.3)
+    dev: false
+
+  /@auth/prisma-adapter@1.0.5(@prisma/client@5.4.2):
+    resolution: {integrity: sha512-GaacU0TErURwUn/1b29LvybxUjlBxi/wIw/4imMNM+e2AfRLpB3PgpPqITQFd2PEdLTXIaHhVZvnzT4pMu9Ueg==}
+    peerDependencies:
+      '@prisma/client': '>=2.26.0 || >=3 || >=4 || >=5'
+    dependencies:
+      '@auth/core': 0.18.0
+      '@prisma/client': 5.4.2(prisma@5.4.2)
+    transitivePeerDependencies:
+      - nodemailer
+    dev: false
 
   /@babel/runtime@7.23.2:
     resolution: {integrity: sha512-mM8eg4yl5D6i3lu2QKPuPH4FArvJ8KhTofbE7jwMUv9KX5mBvwPAqnV3MlyBNqdp9RyRKP6Yck8TrfYrPvX3bg==}
@@ -230,6 +263,16 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
+
+  /@next-auth/prisma-adapter@1.0.7(@prisma/client@5.4.2)(next-auth@4.24.4):
+    resolution: {integrity: sha512-Cdko4KfcmKjsyHFrWwZ//lfLUbcLqlyFqjd/nYE2m3aZ7tjMNUjpks47iw7NTCnXf+5UWz5Ypyt1dSs1EP5QJw==}
+    peerDependencies:
+      '@prisma/client': '>=2.26.0 || >=3'
+      next-auth: ^4
+    dependencies:
+      '@prisma/client': 5.4.2(prisma@5.4.2)
+      next-auth: 4.24.4(next@13.5.6)(react-dom@18.2.0)(react@18.2.0)
+    dev: false
 
   /@next/env@13.5.6:
     resolution: {integrity: sha512-Yac/bV5sBGkkEXmAX5FWPS9Mmo2rthrOPRQQNfycJPkjUAUclomCPH7QFVCDQ4Mp2k2K1SSM6m0zrxYrOwtFQw==}
@@ -3484,6 +3527,10 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
+  /oauth4webapi@2.3.0:
+    resolution: {integrity: sha512-JGkb5doGrwzVDuHwgrR4nHJayzN4h59VCed6EW8Tql6iHDfZIabCJvg6wtbn5q6pyB2hZruI3b77Nudvq7NmvA==}
+    dev: false
+
   /oauth@0.9.15:
     resolution: {integrity: sha512-a5ERWK1kh38ExDEfoO6qUHJb32rd7aYmPHuyCu3Fta/cnICvYmgd2uhuKXvPD+PXB+gCEYYEaQdIRAjCOwAKNA==}
     dev: false
@@ -3723,6 +3770,15 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
+  /preact-render-to-string@5.2.3(preact@10.11.3):
+    resolution: {integrity: sha512-aPDxUn5o3GhWdtJtW0svRC2SS/l8D9MAgo2+AWml+BhDImb27ALf04Q2d+AHqUUOc6RdSXFIBVa2gxzgMKgtZA==}
+    peerDependencies:
+      preact: '>=10'
+    dependencies:
+      preact: 10.11.3
+      pretty-format: 3.8.0
+    dev: false
+
   /preact-render-to-string@5.2.6(preact@10.18.2):
     resolution: {integrity: sha512-JyhErpYOvBV1hEPwIxc/fHWXPfnEGdRKxc8gFdAZ7XV4tlzyzG847XAyEZqoDnynP88akM4eaHcSOzNcLWFguw==}
     peerDependencies:
@@ -3730,6 +3786,10 @@ packages:
     dependencies:
       preact: 10.18.2
       pretty-format: 3.8.0
+    dev: false
+
+  /preact@10.11.3:
+    resolution: {integrity: sha512-eY93IVpod/zG3uMF22Unl8h9KkrcKIRs2EGar8hwLZZDU1lkjph303V9HZBwufh2s736U6VXuhD109LYqPoffg==}
     dev: false
 
   /preact@10.18.2:
