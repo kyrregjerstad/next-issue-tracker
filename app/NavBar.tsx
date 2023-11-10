@@ -49,6 +49,7 @@ const NavBar = () => {
                     alt={session?.user?.name || ""}
                     fallback="?"
                     className="cursor-pointer"
+                    referrerPolicy="no-referrer"
                   />
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Content>
