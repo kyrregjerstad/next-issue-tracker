@@ -8,19 +8,7 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const AssigneeSelect = ({ issue }: { issue: Issue }) => {
-  const {
-    data: users,
-    error,
-    isLoading,
-  } = useQuery<User[]>({
-    queryKey: ["users"],
-    queryFn: async () => {
-      const { data } = await axios.get<User[]>("/api/users");
-      return data;
-    },
-    staleTime: 1000 * 60, // 1 minute
-    retry: 3,
-  });
+  const { data: users, error, isLoading } = useUsers();
 
   const [assigneeField, setAssigneeField] = useState(
     issue.assignedToUserId || "Unassigned"
@@ -28,21 +16,23 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
 
   if (isLoading) return <Skeleton />;
 
+  const assignIssue = async (userId: string) => {
+    try {
+      await axios.patch(`/api/issues/${issue.id}`, {
+        assignedToUserId: userId === "Unassigned" ? null : userId,
+      });
+      setAssigneeField(userId);
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+  };
+
   return (
     <>
       <Select.Root
         defaultValue={issue.assignedToUserId || "Unassigned"}
         value={assigneeField}
-        onValueChange={async (userId) => {
-          try {
-            await axios.patch(`/api/issues/${issue.id}`, {
-              assignedToUserId: userId === "Unassigned" ? null : userId,
-            });
-            setAssigneeField(userId);
-          } catch (error) {
-            toast.error("Something went wrong");
-          }
-        }}
+        onValueChange={assignIssue}
       >
         <Select.Trigger placeholder="Assign..." />
         <Select.Content>
@@ -63,3 +53,14 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
 };
 
 export default AssigneeSelect;
+
+const useUsers = () =>
+  useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const { data } = await axios.get<User[]>("/api/users");
+      return data;
+    },
+    staleTime: 1000 * 60 * 60, // 1 hour
+    retry: 3,
+  });
