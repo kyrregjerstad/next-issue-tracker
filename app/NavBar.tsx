@@ -1,4 +1,5 @@
 "use client";
+import Skeleton from "@/app/components/Skeleton";
 import { Avatar, Box, Container, DropdownMenu, Flex, Text } from "@radix-ui/themes";
 import classnames from "classnames";
 import { useSession } from "next-auth/react";
@@ -53,7 +54,7 @@ const NavLinks = () => {
 const AuthStatus = () => {
   const { status, data: session } = useSession();
 
-  if (status === "loading") return null;
+  if (status === "loading") return <Skeleton width="40px" height="36px" />;
 
   if (status === "unauthenticated") {
     return (
