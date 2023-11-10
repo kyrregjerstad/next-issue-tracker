@@ -5,6 +5,7 @@ import { Select } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   const {
@@ -28,29 +29,36 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   if (isLoading) return <Skeleton />;
 
   return (
-    <Select.Root
-      defaultValue={issue.assignedToUserId || "Unassigned"}
-      value={assigneeField}
-      onValueChange={async (userId) => {
-        await axios.patch(`/api/issues/${issue.id}`, {
-          assignedToUserId: userId === "Unassigned" ? null : userId,
-        });
-        setAssigneeField(userId);
-      }}
-    >
-      <Select.Trigger placeholder="Assign..." />
-      <Select.Content>
-        <Select.Group>
-          <Select.Label>Suggestions</Select.Label>
-          <Select.Item value="Unassigned">Unassigned</Select.Item>
-          {users?.map((user) => (
-            <Select.Item key={user.id} value={user.id}>
-              {user.name}
-            </Select.Item>
-          ))}
-        </Select.Group>
-      </Select.Content>
-    </Select.Root>
+    <>
+      <Select.Root
+        defaultValue={issue.assignedToUserId || "Unassigned"}
+        value={assigneeField}
+        onValueChange={async (userId) => {
+          try {
+            await axios.patch(`/api/issues/${issue.id}`, {
+              assignedToUserId: userId === "Unassigned" ? null : userId,
+            });
+            setAssigneeField(userId);
+          } catch (error) {
+            toast.error("Something went wrong");
+          }
+        }}
+      >
+        <Select.Trigger placeholder="Assign..." />
+        <Select.Content>
+          <Select.Group>
+            <Select.Label>Suggestions</Select.Label>
+            <Select.Item value="Unassigned">Unassigned</Select.Item>
+            {users?.map((user) => (
+              <Select.Item key={user.id} value={user.id}>
+                {user.name}
+              </Select.Item>
+            ))}
+          </Select.Group>
+        </Select.Content>
+      </Select.Root>
+      <Toaster />
+    </>
   );
 };
 
