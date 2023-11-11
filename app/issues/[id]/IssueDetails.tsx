@@ -1,6 +1,7 @@
 import { IssueStatusBadge } from "@/app/components";
 import { Issue } from "@prisma/client";
 import { Heading, Flex, Card, Text } from "@radix-ui/themes";
+import { Metadata } from "next";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 
@@ -17,4 +18,9 @@ export const IssueDetails = ({ issue }: { issue: Issue }) => {
       </Card>
     </>
   );
+};
+
+export const metadata: Metadata = {
+  title: "Issue Tracker - Issue List",
+  description: "View all project issues",
 };
