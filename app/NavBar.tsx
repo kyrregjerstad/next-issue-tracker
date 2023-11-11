@@ -28,7 +28,13 @@ const NavBar = () => {
           </Flex>
           <Flex align="center" gap="4">
             <Link href="/issues/new">
-              <Button>New Issue</Button>
+              <Button
+                style={{
+                  cursor: "pointer",
+                }}
+              >
+                New Issue
+              </Button>
             </Link>
             <AuthStatus />
           </Flex>
