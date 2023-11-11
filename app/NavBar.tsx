@@ -26,18 +26,7 @@ const NavBar = () => {
             </Link>
             <NavLinks />
           </Flex>
-          <Flex align="center" gap="4">
-            <Link href="/issues/new">
-              <Button
-                style={{
-                  cursor: "pointer",
-                }}
-              >
-                New Issue
-              </Button>
-            </Link>
-            <AuthStatus />
-          </Flex>
+          <AuthStatus />
         </Flex>
       </Container>
     </nav>
@@ -84,7 +73,16 @@ const AuthStatus = () => {
   }
 
   return (
-    <Box>
+    <Flex align="center" gap="4">
+      <Link href="/issues/new">
+        <Button
+          style={{
+            cursor: "pointer",
+          }}
+        >
+          New Issue
+        </Button>
+      </Link>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           <Avatar
@@ -104,7 +102,7 @@ const AuthStatus = () => {
           </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
-    </Box>
+    </Flex>
   );
 };
 
