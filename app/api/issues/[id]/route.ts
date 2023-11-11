@@ -21,7 +21,7 @@ export async function PATCH(
     });
   }
 
-  const { assignedToUserId, title, description } = body;
+  const { assignedToUserId, title, description, status } = body;
 
   if (assignedToUserId) {
     const user = await prisma.user.findUnique({
@@ -30,6 +30,12 @@ export async function PATCH(
 
     if (!user) {
       return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
+    }
+  }
+
+  if (status) {
+    if (status !== "OPEN" && status !== "IN_PROGRESS" && status !== "CLOSED") {
+      return NextResponse.json({ error: "Invalid status" }, { status: 400 });
     }
   }
 
@@ -47,6 +53,7 @@ export async function PATCH(
       title,
       description,
       assignedToUserId,
+      status,
     },
   });
 
