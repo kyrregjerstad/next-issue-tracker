@@ -30,8 +30,7 @@ const NavLinks = () => {
 
   const links = [
     { label: "Dashboard", href: "/" },
-    { label: "All Issues", href: "/issues/list" },
-    { label: "Assigned To Me", href: "/issues/list" },
+    { label: "Issues", href: "/issues/list" },
   ];
   return (
     <ul className="flex gap-6">

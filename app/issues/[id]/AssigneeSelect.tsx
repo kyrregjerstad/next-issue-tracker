@@ -4,11 +4,13 @@ import { Issue, User } from "@prisma/client";
 import { Select } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   const { data: users, error, isLoading } = useUsers();
+  const router = useRouter();
 
   const [assigneeField, setAssigneeField] = useState(
     issue.assignedToUserId || "Unassigned"
@@ -22,6 +24,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
         assignedToUserId: userId === "Unassigned" ? null : userId,
       });
       setAssigneeField(userId);
+      router.refresh();
     } catch (error) {
       toast.error("Something went wrong");
     }
