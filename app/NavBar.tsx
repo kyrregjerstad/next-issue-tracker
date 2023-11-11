@@ -1,6 +1,14 @@
 "use client";
 import Skeleton from "@/app/components/Skeleton";
-import { Avatar, Box, Container, DropdownMenu, Flex, Text } from "@radix-ui/themes";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  DropdownMenu,
+  Flex,
+  Text,
+} from "@radix-ui/themes";
 import classnames from "classnames";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -18,7 +26,12 @@ const NavBar = () => {
             </Link>
             <NavLinks />
           </Flex>
-          <AuthStatus />
+          <Flex align="center" gap="4">
+            <Button>
+              <Link href="/issues/new">New Issue</Link>
+            </Button>
+            <AuthStatus />
+          </Flex>
         </Flex>
       </Container>
     </nav>

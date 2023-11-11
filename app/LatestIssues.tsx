@@ -1,5 +1,5 @@
 import prisma from "@/prisma/client";
-import { Avatar, Card, Flex, Heading, Table } from "@radix-ui/themes";
+import { Avatar, Card, Flex, Heading, Table, Text } from "@radix-ui/themes";
 import Link from "next/link";
 import React from "react";
 import { IssueStatusBadge } from "./components";
@@ -16,20 +16,23 @@ const LatestIssues = async () => {
   });
 
   return (
-    <Card>
-      <Heading size="4" mb="5">
-        Latest Issues
-      </Heading>
+    <Card className="p-4">
+      <Heading size="4">Latest Issues</Heading>
       <Table.Root>
         <Table.Body>
           {issues.map((issue) => (
-            <Table.Row key={issue.id}>
-              <Table.Cell>
+            <Table.Row key={issue.id} className="hover:bg-slate-100 transition-colors ">
+              <Table.Cell pl="0">
                 <Flex justify="between">
-                  <Flex direction="column" align="start" gap="2">
-                    <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+                  <Link
+                    href={`/issues/${issue.id}`}
+                    className="flex w-full flex-col items-start gap-1"
+                  >
+                    <Text weight="medium" size="3">
+                      {issue.title}
+                    </Text>
                     <IssueStatusBadge status={issue.status} />
-                  </Flex>
+                  </Link>
                   {issue.assignedToUser && (
                     <Avatar src={issue.assignedToUser.image!} fallback="?" size="2" />
                   )}
