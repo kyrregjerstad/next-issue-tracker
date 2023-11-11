@@ -17,7 +17,9 @@ const LatestIssues = async () => {
 
   return (
     <Card className="p-4">
-      <Heading size="4">Latest Issues</Heading>
+      <Heading size={{ initial: "6", sm: "8" }} className="font-bold">
+        Latest Issues
+      </Heading>
       <Table.Root>
         <Table.Body>
           {issues.map((issue) => (
