@@ -13,7 +13,9 @@ interface Props {
 const IssuesPage = async ({ searchParams }: Props) => {
   const statuses = Object.values(Status);
   const status = statuses.includes(searchParams.status) ? searchParams.status : undefined;
-  const where = { status };
+  const assignee = searchParams.assignee === "Unassigned" ? null : searchParams.assignee;
+
+  const where = { status, assignedToUserId: assignee };
 
   const orderBy = columnNames.includes(searchParams.orderBy)
     ? { [searchParams.orderBy]: "asc" }
@@ -28,6 +30,9 @@ const IssuesPage = async ({ searchParams }: Props) => {
     orderBy,
     skip,
     take: pageSize,
+    include: {
+      assignedToUser: true,
+    },
   });
 
   const issueCount = await prisma.issue.count({ where });

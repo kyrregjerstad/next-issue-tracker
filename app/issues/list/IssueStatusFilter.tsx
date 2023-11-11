@@ -1,6 +1,6 @@
 "use client";
 import { Status } from "@prisma/client";
-import { Select } from "@radix-ui/themes";
+import { Flex, Select, Text } from "@radix-ui/themes";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
@@ -15,28 +15,43 @@ const IssueStatusFilter = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  return (
-    <Select.Root
-      defaultValue={searchParams.get("status") || "All"}
-      onValueChange={(status) => {
-        const params = new URLSearchParams();
-        if (status) params.append("status", status);
-        if (searchParams.get("orderBy"))
-          params.append("orderBy", searchParams.get("orderBy")!);
+  const handleValueChange = (status: Status) => {
+    const params = new URLSearchParams();
+    if (status) {
+      params.append("status", status);
+    }
+    if (searchParams.get("orderBy")) {
+      params.append("orderBy", searchParams.get("orderBy")!);
+    }
+    if (searchParams.get("assignee")) {
+      params.append("assignee", searchParams.get("assignee")!);
+    }
 
-        const query = params.size ? "?" + params.toString() : "";
-        router.push(`/issues/list${query}`);
-      }}
-    >
-      <Select.Trigger placeholder="Filter by status..." />
-      <Select.Content>
-        {statuses.map((status) => (
-          <Select.Item key={status.label} value={status.value || "All"}>
-            {status.label}
-          </Select.Item>
-        ))}
-      </Select.Content>
-    </Select.Root>
+    const query = params.size ? "?" + params.toString() : "";
+    router.push(`/issues/list${query}`);
+  };
+
+  return (
+    <>
+      <Flex direction="column">
+        <Text size="1" color="gray">
+          Status
+        </Text>
+        <Select.Root
+          onValueChange={handleValueChange}
+          defaultValue={searchParams.get("status") || "All"}
+        >
+          <Select.Trigger className="w-32" />
+          <Select.Content>
+            {statuses.map((status) => (
+              <Select.Item key={status.label} value={status.value || "All"}>
+                {status.label}
+              </Select.Item>
+            ))}
+          </Select.Content>
+        </Select.Root>
+      </Flex>
+    </>
   );
 };
 

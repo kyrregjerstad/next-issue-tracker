@@ -29,7 +29,7 @@ const IssueStatusSelect = ({ issue }: { issue: Issue }) => {
   return (
     <>
       <Select.Root defaultValue={issue.status} onValueChange={changeStatus}>
-        <Select.Trigger className="w-32" />
+        <Select.Trigger className="w-32" variant="ghost" />
         <Select.Content>
           <Select.Group>
             <Select.Label>Status</Select.Label>
