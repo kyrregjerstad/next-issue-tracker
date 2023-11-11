@@ -22,3 +22,8 @@
 button {
   cursor: pointer;
 }
+
+.CodeMirror {
+  background-color: var(--color-panel-translucent) !important;
+  color: var(--gray-12) !important;
+}

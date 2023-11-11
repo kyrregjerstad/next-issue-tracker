@@ -53,7 +53,7 @@ const IssueForm = ({ issue }: Props) => {
   return (
     <div className="max-w-xl">
       {error && (
-        <Callout.Root color="red" className="mb-5">
+        <Callout.Root color="red" className="mb-2">
           <Callout.Text>{error}</Callout.Text>
         </Callout.Root>
       )}
@@ -73,7 +73,7 @@ const IssueForm = ({ issue }: Props) => {
           render={({ field }) => <SimpleMDE placeholder="Description" {...field} />}
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
-        <Button disabled={isSubmitting}>
+        <Button disabled={isSubmitting} style={{ cursor: "pointer" }} size="3">
           {issue ? "update" : "create"} {isSubmitting && <Spinner />}
         </Button>
       </form>
