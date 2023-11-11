@@ -1,17 +1,23 @@
 import React from "react";
 import NextLink from "next/link";
 import { Link as RadixLink } from "@radix-ui/themes";
+import { ComponentProps } from "react";
+import clsx from "clsx";
 
-interface Props {
-  href: string;
-  children: string;
+type NextLinkProps = ComponentProps<typeof NextLink>;
+
+interface Props extends NextLinkProps {
+  children: React.ReactNode;
+  className?: string;
 }
 
-const Link = ({ href, children }: Props) => {
+const Link = ({ children, className, ...nextLinkProps }: Props) => {
+  const mergedClasses = clsx("default-link-styles", className); // Merge default styles with passed className
+
   return (
     <>
-      <NextLink href={href} passHref legacyBehavior>
-        <RadixLink>{children}</RadixLink>
+      <NextLink {...nextLinkProps} passHref legacyBehavior>
+        <RadixLink className={mergedClasses}>{children}</RadixLink>
       </NextLink>
     </>
   );

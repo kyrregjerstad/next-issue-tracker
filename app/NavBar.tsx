@@ -11,7 +11,7 @@ import {
 } from "@radix-ui/themes";
 import classnames from "classnames";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
+import Link from "@/app/components/Link";
 import { usePathname } from "next/navigation";
 import { AiFillBug } from "react-icons/ai";
 
@@ -22,14 +22,14 @@ const NavBar = () => {
         <Flex justify="between">
           <Flex align="center" gap="3">
             <Link href="/">
-              <AiFillBug className="text-2xl" />
+              <AiFillBug className="text-2xl text-[color:var(--gray-12)]" />
             </Link>
             <NavLinks />
           </Flex>
           <Flex align="center" gap="4">
-            <Button>
-              <Link href="/issues/new">New Issue</Link>
-            </Button>
+            <Link href="/issues/new">
+              <Button>New Issue</Button>
+            </Link>
             <AuthStatus />
           </Flex>
         </Flex>
@@ -52,8 +52,8 @@ const NavLinks = () => {
           <Link
             href={link.href}
             className={classnames({
-              "nav-link": true,
-              "!text-zinc-900": link.href === currentPath,
+              "!text-[color:var(--gray-11)]": link.href !== currentPath,
+              "!text-[color:var(--accent-a11)]": link.href === currentPath,
             })}
           >
             {link.label}
