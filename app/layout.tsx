@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <QueryClientProvider>
           <AuthProvider>
-            <Theme appearance="dark">
+            <Theme appearance="dark" radius="large" accentColor="cyan">
               <NavBar />
               <main className="p-5">
                 <Container>{children}</Container>
