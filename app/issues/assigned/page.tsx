@@ -19,8 +19,6 @@ const AssignedPage = async ({ searchParams }: Props) => {
 
   const session = await getServerSession();
 
-  console.log(session?.user.);
-
   const orderBy = columnNames.includes(searchParams.orderBy)
     ? { [searchParams.orderBy]: "asc" }
     : undefined;
