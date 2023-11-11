@@ -1,5 +1,4 @@
 "use client";
-import Skeleton from "@/app/components/Skeleton";
 import { User } from "@prisma/client";
 import { Flex, Select, Text } from "@radix-ui/themes";
 
@@ -14,8 +13,6 @@ const AssigneeFilter = () => {
 
   const router = useRouter();
   const searchParams = useSearchParams();
-
-  if (isLoading) return <Skeleton />;
 
   const handleValueChange = (username: string) => {
     const params = new URLSearchParams();
@@ -45,9 +42,9 @@ const AssigneeFilter = () => {
         </Text>
         <Select.Root
           onValueChange={handleValueChange}
-          defaultValue={searchParams.get("user") || "All"}
+          defaultValue={searchParams.get("assignee") || "All"}
         >
-          <Select.Trigger placeholder="Assign..." />
+          <Select.Trigger placeholder="Assign..." style={{ minWidth: "6rem" }} />
           <Select.Content>
             <Select.Group>
               <Select.Label>Suggestions</Select.Label>

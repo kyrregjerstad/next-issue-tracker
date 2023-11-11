@@ -41,7 +41,11 @@ const IssueStatusFilter = () => {
           onValueChange={handleValueChange}
           defaultValue={searchParams.get("status") || "All"}
         >
-          <Select.Trigger className="w-32" />
+          <Select.Trigger
+            style={{
+              minWidth: "6rem",
+            }}
+          />
           <Select.Content>
             {statuses.map((status) => (
               <Select.Item key={status.label} value={status.value || "All"}>
